@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BalticMarinasEventsWS.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BalticMarinasEventsWS.Controllers
@@ -14,6 +15,10 @@ namespace BalticMarinasEventsWS.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
+            EventsContext context = HttpContext.RequestServices.GetService(typeof(BalticMarinasEventsWS.Models.EventsContext)) as EventsContext;
+
+            var belekas = context.GetAllEvents();
+
             return new string[] { "value1", "value2" };
         }
 
@@ -41,5 +46,6 @@ namespace BalticMarinasEventsWS.Controllers
         public void Delete(int id)
         {
         }
+
     }
 }
