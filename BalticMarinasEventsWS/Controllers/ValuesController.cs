@@ -11,6 +11,14 @@ namespace BalticMarinasEventsWS.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
+        [HttpGet]
+        public IEnumerable<Event> GetAll()
+        {
+            EventsContext context = HttpContext.RequestServices.GetService(typeof(BalticMarinasEventsWS.Models.EventsContext)) as EventsContext;
+            return context.GetAllEvents();
+        }
+
+        /*
         // GET api/values
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
@@ -21,6 +29,7 @@ namespace BalticMarinasEventsWS.Controllers
 
             return new string[] { "value1", "value2" };
         }
+        */
 
         // GET api/values/5
         [HttpGet("{id}")]

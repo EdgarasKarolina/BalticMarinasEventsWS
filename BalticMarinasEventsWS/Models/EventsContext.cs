@@ -38,6 +38,7 @@ namespace BalticMarinasEventsWS.Models
                             Id = Convert.ToInt32(reader["Id"]),
                             Name = reader["name"].ToString(),
                             Location = reader["location"].ToString(),
+                            Text = reader["text"].ToString()
                         });
                     }
                 }
