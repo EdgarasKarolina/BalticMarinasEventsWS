@@ -18,24 +18,12 @@ namespace BalticMarinasEventsWS.Controllers
             return context.GetAllEvents();
         }
 
-        /*
-        // GET api/values
-        [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
-        {
-            EventsContext context = HttpContext.RequestServices.GetService(typeof(BalticMarinasEventsWS.Models.EventsContext)) as EventsContext;
-
-            var belekas = context.GetAllEvents();
-
-            return new string[] { "value1", "value2" };
-        }
-        */
-
         // GET api/values/5
         [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
+        public Event Get(int id)
         {
-            return "value";
+            EventsContext context = HttpContext.RequestServices.GetService(typeof(BalticMarinasEventsWS.Models.EventsContext)) as EventsContext;
+            return context.GetEventById(id);
         }
 
         // POST api/values

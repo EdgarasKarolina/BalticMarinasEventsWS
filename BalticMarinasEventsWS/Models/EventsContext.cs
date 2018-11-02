@@ -1,8 +1,6 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace BalticMarinasEventsWS.Models
 {
@@ -44,6 +42,30 @@ namespace BalticMarinasEventsWS.Models
                 }
             }
             return list;
+        }
+
+        public Event GetEventById(int id)
+        {
+            var eventById = new Event();
+
+            using (MySqlConnection conn = GetConnection())
+            {
+                conn.Open();
+                MySqlCommand cmd = new MySqlCommand("select * from events where id = @id", conn);
+                cmd.Parameters.Add("@id", MySqlDbType.Int16).Value = id;
+
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        eventById.Id = Convert.ToInt32(reader["Id"]);
+                        eventById.Name = reader["name"].ToString();
+                        eventById.Location = reader["location"].ToString();
+                        eventById.Text = reader["text"].ToString();
+                    }
+                }
+            }
+            return eventById;
         }
     }
 }
