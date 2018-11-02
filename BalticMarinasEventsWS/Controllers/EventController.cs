@@ -8,6 +8,7 @@ namespace BalticMarinasEventsWS.Controllers
     [ApiController]
     public class EventController : ControllerBase
     {
+        // GET api/event
         [HttpGet]
         public IEnumerable<Event> GetAll()
         {
@@ -15,7 +16,7 @@ namespace BalticMarinasEventsWS.Controllers
             return context.GetAllEvents();
         }
 
-        // GET api/values/5
+        // GET api/event/5
         [HttpGet("{id}")]
         public Event Get(int id)
         {
@@ -23,19 +24,19 @@ namespace BalticMarinasEventsWS.Controllers
             return context.GetEventById(id);
         }
 
-        // POST api/values
+        // POST api/event
         [HttpPost]
         public void Post([FromBody] string value)
         {
         }
 
-        // PUT api/values/5
+        // PUT api/event/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
         }
 
-        // DELETE api/values/5
+        // DELETE api/event/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
