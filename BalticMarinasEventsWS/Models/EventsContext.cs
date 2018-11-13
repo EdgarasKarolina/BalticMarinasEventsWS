@@ -67,5 +67,24 @@ namespace BalticMarinasEventsWS.Models
             }
             return eventById;
         }
+
+        public void DeleteEventById(int id)
+        {
+            try
+            {
+                using (MySqlConnection conn = GetConnection())
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("DELETE from events where id = @id", conn);
+                    cmd.Parameters.Add("@id", MySqlDbType.Int16).Value = id;
+
+                    cmd.ExecuteReader();
+                }
+            }
+            catch (Exception e)
+            {
+                //this.logger.Error($"Error in DeleteRolePerSystem - {e}");
+            }
+        }
     }
 }

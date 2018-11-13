@@ -24,6 +24,15 @@ namespace BalticMarinasEventsWS.Controllers
             return context.GetEventById(id);
         }
 
+        // GET api/event/5
+        [HttpDelete("{id}")]
+        public void Delete(int id)
+        {
+            EventsContext context = HttpContext.RequestServices.GetService(typeof(BalticMarinasEventsWS.Models.EventsContext)) as EventsContext;
+            context.DeleteEventById(id);
+        }
+
+
         // POST api/event
         [HttpPost]
         public void Post([FromBody] string value)
@@ -35,11 +44,11 @@ namespace BalticMarinasEventsWS.Controllers
         public void Put(int id, [FromBody] string value)
         {
         }
-
+        /*
         // DELETE api/event/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-        }
+        } */
     }
 }
