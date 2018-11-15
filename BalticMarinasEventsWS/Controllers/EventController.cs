@@ -44,11 +44,5 @@ namespace BalticMarinasEventsWS.Controllers
         public void Put(int id, [FromBody] string value)
         {
         }
-        /*
-        // DELETE api/event/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        } */
     }
 }

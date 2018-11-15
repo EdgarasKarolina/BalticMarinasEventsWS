@@ -1,4 +1,5 @@
-﻿using MySql.Data.MySqlClient;
+﻿using BalticMarinasEventsWS.Utilities;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 
@@ -25,7 +26,7 @@ namespace BalticMarinasEventsWS.Models
             using (MySqlConnection conn = GetConnection())
             {
                 conn.Open();
-                MySqlCommand cmd = new MySqlCommand("select * from events", conn);
+                MySqlCommand cmd = new MySqlCommand(Queries.GetAllEvents, conn);
 
                 using (var reader = cmd.ExecuteReader())
                 {
@@ -51,7 +52,7 @@ namespace BalticMarinasEventsWS.Models
             using (MySqlConnection conn = GetConnection())
             {
                 conn.Open();
-                MySqlCommand cmd = new MySqlCommand("select * from events where id = @id", conn);
+                MySqlCommand cmd = new MySqlCommand(Queries.GetEventById, conn);
                 cmd.Parameters.Add("@id", MySqlDbType.Int16).Value = id;
 
                 using (var reader = cmd.ExecuteReader())
@@ -75,7 +76,7 @@ namespace BalticMarinasEventsWS.Models
                 using (MySqlConnection conn = GetConnection())
                 {
                     conn.Open();
-                    MySqlCommand cmd = new MySqlCommand("DELETE from events where id = @id", conn);
+                    MySqlCommand cmd = new MySqlCommand(Queries.DeleteEventById, conn);
                     cmd.Parameters.Add("@id", MySqlDbType.Int16).Value = id;
 
                     cmd.ExecuteReader();
