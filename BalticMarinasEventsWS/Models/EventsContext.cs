@@ -34,10 +34,11 @@ namespace BalticMarinasEventsWS.Models
                     {
                         list.Add(new Event()
                         {
-                            Id = Convert.ToInt32(reader["Id"]),
-                            Name = reader["name"].ToString(),
-                            Location = reader["location"].ToString(),
-                            Text = reader["text"].ToString()
+                            EventId = Convert.ToInt32(reader["EventId"]),
+                            Title = reader["Title"].ToString(),
+                            Location = reader["Location"].ToString(),
+                            Period = reader["Period"].ToString(),
+                            Description = reader["Description"].ToString()
                         });
                     }
                 }
@@ -53,16 +54,17 @@ namespace BalticMarinasEventsWS.Models
             {
                 conn.Open();
                 MySqlCommand cmd = new MySqlCommand(Queries.GetEventById, conn);
-                cmd.Parameters.Add("@id", MySqlDbType.Int16).Value = id;
+                cmd.Parameters.Add("@eventId", MySqlDbType.Int16).Value = id;
 
                 using (var reader = cmd.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                        eventById.Id = Convert.ToInt32(reader["Id"]);
-                        eventById.Name = reader["name"].ToString();
-                        eventById.Location = reader["location"].ToString();
-                        eventById.Text = reader["text"].ToString();
+                        eventById.EventId = Convert.ToInt32(reader["EventId"]);
+                        eventById.Title = reader["Title"].ToString();
+                        eventById.Location = reader["Location"].ToString();
+                        eventById.Period = reader["Period"].ToString();
+                        eventById.Description = reader["Description"].ToString();
                     }
                 }
             }
@@ -77,7 +79,7 @@ namespace BalticMarinasEventsWS.Models
                 {
                     conn.Open();
                     MySqlCommand cmd = new MySqlCommand(Queries.DeleteEventById, conn);
-                    cmd.Parameters.Add("@id", MySqlDbType.Int16).Value = id;
+                    cmd.Parameters.Add("@eventId", MySqlDbType.Int16).Value = id;
 
                     cmd.ExecuteReader();
                 }
