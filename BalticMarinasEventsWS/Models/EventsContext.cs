@@ -71,6 +71,27 @@ namespace BalticMarinasEventsWS.Models
             return eventById;
         }
 
+        public void CreateEvent(Event newEvent)
+        {
+            try
+            {
+                using (MySqlConnection conn = GetConnection())
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand(Queries.CreateEvent, conn);
+                    cmd.Parameters.Add("@title", MySqlDbType.VarChar).Value = newEvent.Title;
+                    cmd.Parameters.Add("@location", MySqlDbType.VarChar).Value = newEvent.Location;
+                    cmd.Parameters.Add("@period", MySqlDbType.VarChar).Value = newEvent.Period;
+                    cmd.Parameters.Add("@description", MySqlDbType.VarChar).Value = newEvent.Description;
+
+                    cmd.ExecuteReader();
+                }
+            }
+            catch (Exception e)
+            {
+            }
+        }
+
         public void DeleteEventById(int id)
         {
             try

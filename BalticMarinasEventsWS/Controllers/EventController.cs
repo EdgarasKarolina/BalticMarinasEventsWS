@@ -35,9 +35,10 @@ namespace BalticMarinasEventsWS.Controllers
 
         // POST api/event
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post([FromBody] Event newEvent)
         {
-
+            EventsContext context = HttpContext.RequestServices.GetService(typeof(BalticMarinasEventsWS.Models.EventsContext)) as EventsContext;
+            context.CreateEvent(newEvent);
         }
 
         // PUT api/event/5
