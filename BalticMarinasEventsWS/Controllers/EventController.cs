@@ -1,4 +1,5 @@
 ﻿using BalticMarinasEventsWS.Models;
+using BalticMarinasEventsWS.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 
@@ -12,24 +13,24 @@ namespace BalticMarinasEventsWS.Controllers
         [HttpGet]
         public IEnumerable<Event> GetAll()
         {
-            EventsContext context = HttpContext.RequestServices.GetService(typeof(BalticMarinasEventsWS.Models.EventsContext)) as EventsContext;
-            return context.GetAllEvents();
+            IEventRepository repository = HttpContext.RequestServices.GetService(typeof(BalticMarinasEventsWS.Models.EventRepository)) as EventRepository;
+            return repository.GetAllEvents();
         }
 
         // GET api/event/5
         [HttpGet("{id}")]
         public Event Get(int id)
         {
-            EventsContext context = HttpContext.RequestServices.GetService(typeof(BalticMarinasEventsWS.Models.EventsContext)) as EventsContext;
-            return context.GetEventById(id);
+            IEventRepository repository = HttpContext.RequestServices.GetService(typeof(BalticMarinasEventsWS.Models.EventRepository)) as EventRepository;
+            return repository.GetEventById(id);
         }
 
         // GET api/event/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-            EventsContext context = HttpContext.RequestServices.GetService(typeof(BalticMarinasEventsWS.Models.EventsContext)) as EventsContext;
-            context.DeleteEventById(id);
+            IEventRepository repository = HttpContext.RequestServices.GetService(typeof(BalticMarinasEventsWS.Models.EventRepository)) as EventRepository;
+            repository.DeleteEventById(id);
         }
 
 
@@ -37,8 +38,8 @@ namespace BalticMarinasEventsWS.Controllers
         [HttpPost]
         public void Post([FromBody] Event newEvent)
         {
-            EventsContext context = HttpContext.RequestServices.GetService(typeof(BalticMarinasEventsWS.Models.EventsContext)) as EventsContext;
-            context.CreateEvent(newEvent);
+            IEventRepository repository = HttpContext.RequestServices.GetService(typeof(BalticMarinasEventsWS.Models.EventRepository)) as EventRepository;
+            repository.CreateEvent(newEvent);
         }
 
         // PUT api/event/5

@@ -1,15 +1,16 @@
-﻿using BalticMarinasEventsWS.Utilities;
+﻿using BalticMarinasEventsWS.Repositories.Interfaces;
+using BalticMarinasEventsWS.Utilities;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 
 namespace BalticMarinasEventsWS.Models
 {
-    public class EventsContext
+    public class EventRepository : IEventRepository
     {
         public string ConnectionString { get; set; }
 
-        public EventsContext(string connectionString)
+        public EventRepository(string connectionString)
         {
             this.ConnectionString = connectionString;
         }
