@@ -7,6 +7,7 @@ namespace BalticMarinasEventsWS.Repositories.Interfaces
     {
         List<Event> GetAllEvents();
         Event GetEventById(int id);
+        List<Event> GetAllEventsByUserId(int id);
         void CreateEvent(Event newEvent);
         void DeleteEventById(int id);
     }

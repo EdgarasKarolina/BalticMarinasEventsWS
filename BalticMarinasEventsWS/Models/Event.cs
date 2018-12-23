@@ -7,5 +7,6 @@
         public string Location { get; set; }
         public string Period { get; set; }
         public string Description { get; set; }
+        public int UserId { get; set; }
     }
 }

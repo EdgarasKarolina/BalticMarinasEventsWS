@@ -1,10 +1,11 @@
-﻿using BalticMarinasEventsWS.Repositories.Interfaces;
+﻿using BalticMarinasEventsWS.Models;
+using BalticMarinasEventsWS.Repositories.Interfaces;
 using BalticMarinasEventsWS.Utilities;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 
-namespace BalticMarinasEventsWS.Models
+namespace BalticMarinasEventsWS.Repositories
 {
     public class EventRepository : IEventRepository
     {
@@ -39,7 +40,8 @@ namespace BalticMarinasEventsWS.Models
                             Title = reader["Title"].ToString(),
                             Location = reader["Location"].ToString(),
                             Period = reader["Period"].ToString(),
-                            Description = reader["Description"].ToString()
+                            Description = reader["Description"].ToString(),
+                            UserId = Convert.ToInt32(reader["UserId"])
                         });
                     }
                 }
@@ -66,10 +68,40 @@ namespace BalticMarinasEventsWS.Models
                         eventById.Location = reader["Location"].ToString();
                         eventById.Period = reader["Period"].ToString();
                         eventById.Description = reader["Description"].ToString();
+                        eventById.UserId = Convert.ToInt32(reader["UserId"]);
                     }
                 }
             }
             return eventById;
+        }
+
+        public List<Event> GetAllEventsByUserId(int id)
+        {
+            List<Event> list = new List<Event>();
+
+            using (MySqlConnection conn = GetConnection())
+            {
+                conn.Open();
+                MySqlCommand cmd = new MySqlCommand(Queries.GetAllEventsByUserId, conn);
+                cmd.Parameters.Add("@userId", MySqlDbType.Int16).Value = id;
+
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        list.Add(new Event()
+                        {
+                            EventId = Convert.ToInt32(reader["EventId"]),
+                            Title = reader["Title"].ToString(),
+                            Location = reader["Location"].ToString(),
+                            Period = reader["Period"].ToString(),
+                            Description = reader["Description"].ToString(),
+                            UserId = Convert.ToInt32(reader["UserId"])
+                        });
+                    }
+                }
+            }
+            return list;
         }
 
         public void CreateEvent(Event newEvent)
@@ -84,6 +116,7 @@ namespace BalticMarinasEventsWS.Models
                     cmd.Parameters.Add("@location", MySqlDbType.VarChar).Value = newEvent.Location;
                     cmd.Parameters.Add("@period", MySqlDbType.VarChar).Value = newEvent.Period;
                     cmd.Parameters.Add("@description", MySqlDbType.VarChar).Value = newEvent.Description;
+                    cmd.Parameters.Add("@userId", MySqlDbType.Int16).Value = newEvent.UserId;
 
                     cmd.ExecuteReader();
                 }
