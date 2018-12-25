@@ -8,9 +8,9 @@ namespace BalticMarinasEventsWS.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class EventController : ControllerBase
+    public class EventsController : ControllerBase
     {
-        // GET api/event
+        // GET api/events
         [HttpGet]
         public IEnumerable<Event> GetAll()
         {
@@ -18,7 +18,7 @@ namespace BalticMarinasEventsWS.Controllers
             return repository.GetAllEvents();
         }
 
-        // GET api/event/5
+        // GET api/events/5
         [HttpGet("{id}")]
         public Event Get(int id)
         {
@@ -26,14 +26,15 @@ namespace BalticMarinasEventsWS.Controllers
             return repository.GetEventById(id);
         }
 
-        [HttpGet("user/{id}")]
+        // GET api/users/3/
+        [HttpGet("users/{id}")]
         public IEnumerable<Event> GetAllEventsByUserId(int id)
         {
             IEventRepository repository = HttpContext.RequestServices.GetService(typeof(EventRepository)) as EventRepository;
             return repository.GetAllEventsByUserId(id);
         }
 
-        // GET api/event/5
+        // GET api/events/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
@@ -42,18 +43,12 @@ namespace BalticMarinasEventsWS.Controllers
         }
 
 
-        // POST api/event
+        // POST api/events
         [HttpPost]
         public void Post([FromBody] Event newEvent)
         {
             IEventRepository repository = HttpContext.RequestServices.GetService(typeof(EventRepository)) as EventRepository;
             repository.CreateEvent(newEvent);
-        }
-
-        // PUT api/event/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
         }
     }
 }
