@@ -39,5 +39,5 @@ In order to run the project a small amount of prerequisites and additional steps
 ### Running
 
 + Clone the project from GitHub repository
-+ Open `AuthenticationWS.sln` file using Visual Studio IDE
++ Open `BalticMarinasEventsWS.sln` file using Visual Studio IDE
 + Start application by clicking `Play` button
