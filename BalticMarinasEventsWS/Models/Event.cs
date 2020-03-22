@@ -2,11 +2,11 @@
 {
     public class Event
     {
-        public int EventId { get; set; }
-        public string Title { get; set; }
-        public string Location { get; set; }
-        public string Period { get; set; }
-        public string Description { get; set; }
-        public int UserId { get; set; }
+        internal int EventId { get; set; }
+        internal string Title { get; set; }
+        internal string Location { get; set; }
+        internal string Period { get; set; }
+        internal string Description { get; set; }
+        internal int UserId { get; set; }
     }
 }
